@@ -138,8 +138,3 @@ Stable Diffusion for image generation
 Flask for the web framework
 All the artists whose work has inspired this installation
 
-
-<div align="center">
-  <p>Created by [Your Name/Organization]</p>
-  <p>© 2025</p>
-</div>
