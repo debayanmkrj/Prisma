@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prisma: Past, Present, Future</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <!-- Make sure socket.io is loaded before main.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <!-- Add title header -->
+    <header id="app-header">
+        <h1>PRISMA</h1>
+    </header>
+    
+    <div id="app-container">
+        <div id="panels-container">
+            <!-- Added square container wrapper -->
+            <div class="square-container">
+                <!-- Past Panel -->
+                <div id="past-panel" class="panel">
+                    
+                    <canvas id="past-canvas"></canvas>
+                </div>
+                
+                <!-- Present Panel -->
+                <div id="present-panel" class="panel">
+                    
+                    <canvas id="present-canvas"></canvas>
+                </div>
+                
+                <!-- Future Panel -->
+                <div id="future-panel" class="panel">
+                    
+                    <canvas id="future-canvas"></canvas>
+                </div>
+            </div>
+            
+            <!-- Fixed positioning for transition canvas -->
+            <canvas id="transition-canvas"></canvas>
+        </div>
+        
+        <div id="controls">
+            <div id="status-container">
+                <div id="status-message" class="status-message"></div>
+                <div id="auto-status" class="auto-status">Auto: <span id="auto-status-value">ON</span></div>
+                <div id="next-time" class="next-time">Next: <span id="next-time-value">30s</span></div>
+            </div>
+            
+            <div id="buttons-container">
+                <button id="transform-btn" class="control-btn">Transform (T)</button>
+                <button id="auto-btn" class="control-btn">Toggle Auto (A)</button>
+                
+            </div>
+        </div>
+    </div>
+    
+    <!-- Video element for webcam (hidden) -->
+    <video id="webcam" autoplay playsinline style="display: none;"></video>
+    
+    <!-- Hidden canvases for processing -->
+    <canvas id="processing-canvas" style="display: none;"></canvas>
+    
+    <!-- Emergency backup rendering -->
+    <script>
+    // Emergency backup rendering to ensure panels are visible
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            console.log("Emergency backup rendering starting...");
+            
+            // Drawing emergency backgrounds to ensure panels are visible
+            const pastCanvas = document.getElementById('past-canvas');
+            if (pastCanvas) {
+                const ctx = pastCanvas.getContext('2d');
+                ctx.fillStyle = 'rgba(100, 50, 20, 0.5)';
+                ctx.fillRect(0, 0, pastCanvas.width, pastCanvas.height);
+            }
+            
+            const presentCanvas = document.getElementById('present-canvas');
+            if (presentCanvas) {
+                const ctx = presentCanvas.getContext('2d');
+                ctx.fillStyle = 'rgba(20, 100, 50, 0.5)';
+                ctx.fillRect(0, 0, presentCanvas.width, presentCanvas.height);
+            }
+            
+            const futureCanvas = document.getElementById('future-canvas');
+            if (futureCanvas) {
+                const ctx = futureCanvas.getContext('2d');
+                ctx.fillStyle = 'rgba(80, 20, 100, 0.5)';
+                ctx.fillRect(0, 0, futureCanvas.width, futureCanvas.height);
+            }
+            
+            console.log("Emergency backup rendering complete");
+        }, 1000);
+    });
+    </script>
+    
+    <!-- First load config and utils - add defer attribute to avoid blocking -->
+    <script src="static/js/config.js" defer></script>
+    <script src="static/js/utils.js" defer></script>
+
+    <!-- Then load the effect scripts - add defer attribute to ensure proper loading order -->
+    <script src="static/js/past-effect.js" defer></script>
+    <script src="static/js/present-effect.js" defer></script>
+    <script src="static/js/future-effect.js" defer></script>
+    <script src="static/js/panel-transitions.js" defer></script>
+    <!-- Finally load the main script - also with defer -->
+    <script src="static/js/main.js" defer></script>
+</body>
+</html>

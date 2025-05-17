@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prisma Diagnostic</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        button {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .result {
+            background-color: #222;
+            padding: 10px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prisma Diagnostic Tool</h1>
+    
+    <button onclick="checkPanels()">Check Panel Visibility</button>
+    <button onclick="forceVisibility()">Force Panel Visibility</button>
+    <button onclick="removeTransitions()">Remove Transitions</button>
+    <button onclick="testPanelDrawing()">Test Panel Drawing</button>
+    
+    <div id="result" class="result">Results will appear here...</div>
+    
+    <script>
+        function checkPanels() {
+            const result = document.getElementById('result');
+            result.innerHTML = '';
+            
+            const panels = ['past-canvas', 'present-canvas', 'future-canvas', 'transition-canvas'];
+            
+            panels.forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas) {
+                    const computed = window.getComputedStyle(canvas);
+                    result.innerHTML += `${id}:\n`;
+                    result.innerHTML += `  - Found: YES\n`;
+                    result.innerHTML += `  - Width: ${canvas.width}px\n`;
+                    result.innerHTML += `  - Height: ${canvas.height}px\n`;
+                    result.innerHTML += `  - Display: ${computed.display}\n`;
+                    result.innerHTML += `  - Visibility: ${computed.visibility}\n`;
+                    result.innerHTML += `  - Opacity: ${computed.opacity}\n`;
+                    result.innerHTML += `  - Z-Index: ${computed.zIndex}\n`;
+                    result.innerHTML += `\n`;
+                } else {
+                    result.innerHTML += `${id}: NOT FOUND\n\n`;
+                }
+            });
+        }
+        
+        function forceVisibility() {
+            const panels = ['past-canvas', 'present-canvas', 'future-canvas'];
+            panels.forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas) {
+                    canvas.style.display = 'block';
+                    canvas.style.visibility = 'visible';
+                    canvas.style.opacity = '1';
+                    canvas.style.zIndex = '5';
+                    
+                    // Test drawing to make sure the canvas works
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = id === 'past-canvas' ? 'red' : 
+                                  (id === 'present-canvas' ? 'green' : 'blue');
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+            });
+            
+            // Also make transitions less intrusive
+            const transCanvas = document.getElementById('transition-canvas');
+            if (transCanvas) {
+                transCanvas.style.opacity = '0.3';
+            }
+            
+            document.getElementById('result').innerHTML = 'Forced visibility applied!';
+        }
+        
+        function removeTransitions() {
+            const transCanvas = document.getElementById('transition-canvas');
+            if (transCanvas) {
+                transCanvas.style.display = 'none';
+                document.getElementById('result').innerHTML = 'Transition canvas hidden!';
+            } else {
+                document.getElementById('result').innerHTML = 'Transition canvas not found!';
+            }
+        }
+        
+        function testPanelDrawing() {
+            const panels = ['past-canvas', 'present-canvas', 'future-canvas'];
+            panels.forEach(id => {
+                const canvas = document.getElementById(id);
+                if (canvas) {
+                    // Test drawing to make sure the canvas works
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Clear first
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw a gradient background
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    
+                    if (id === 'past-canvas') {
+                        gradient.addColorStop(0, 'rgba(100, 50, 0, 0.9)');
+                        gradient.addColorStop(1, 'rgba(50, 25, 0, 0.9)');
+                    } else if (id === 'present-canvas') {
+                        gradient.addColorStop(0, 'rgba(0, 100, 50, 0.9)');
+                        gradient.addColorStop(1, 'rgba(0, 50, 25, 0.9)');
+                    } else {
+                        gradient.addColorStop(0, 'rgba(50, 0, 100, 0.9)');
+                        gradient.addColorStop(1, 'rgba(25, 0, 50, 0.9)');
+                    }
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw a pattern
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                    for (let i = 0; i < 20; i++) {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        const size = 5 + Math.random() * 20;
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            });
+            
+            document.getElementById('result').innerHTML = 'Test drawing applied to all panels!';
+        }
+    </script>
+</body>
+</html>
