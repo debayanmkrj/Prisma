@@ -112,6 +112,7 @@ PRISMA explores the continuum of human existence through time, asking the questi
 The Past panel connects us to our historical understanding of human form and proportion
 The Present panel fragments our current perception, highlighting the fluidity of our digital identities
 The Future panel speculates on how AI and technology might reimagine humanity
+<img width="451" alt="image" src="https://github.com/user-attachments/assets/ad4c1231-52aa-4adc-b953-d267f88b1f97" />
 
 Inspiration
 This project draws inspiration from:
