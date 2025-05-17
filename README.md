@@ -3,11 +3,8 @@
 
 
 PRISMA: Past, Present, Future
-Show Image
-<div align="center">
-  <img src="https://github.com/username/prisma-installation/raw/main/docs/images/prisma-banner.png" alt="PRISMA Banner" width="800"/>
-  <p><em>An interactive art installation exploring human existence through time</em></p>
-</div>
+![Picture1](https://github.com/user-attachments/assets/7db7bcdc-d5b4-429d-ad6d-14a3e0105bd0)
+
 Overview
 PRISMA is an interactive digital art installation that refracts the human form through three temporal lenses: past, present, and future. The installation uses real-time computer vision, body tracking, and generative AI to transform participants into evolving visual interpretations across time dimensions.
 When visitors step in front of the installation, they see themselves reflected in three distinct panels:
